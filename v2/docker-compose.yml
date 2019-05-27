@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+
+  nginx1.15:
+    depends_on:
+      - php7.2
+    # 指定镜像来源
+    image: rdisme/nginx:base
+    volumes:
+        # 挂载本地nginx配置文件
+        - ./nginx1.15/nginx.conf:/etc/nginx/nginx.conf
+        # 挂载本地nginx 域名配置目录
+        - ./nginx1.15/conf.d:/etc/nginx/conf.d
+        # 挂载本地SSL证书目录
+        - ./nginx1.15/cert:/etc/nginx/cert
+        # 挂载本地日志目录
+        - ./nginx1.15/log:/var/log/nginx
+        # 挂载本地项目目录
+        - ./www:/usr/share/nginx/html
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    container_name: nginx1.15
+
+
+  php7.2:
+    image: rdisme/php:2.2
+    volumes:
+      # 挂载本地php-fpm进程服务的配置文件
+      - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      # 挂载本地设置php-fpm进程服务的扩展配置文件
+      - ./php7.2/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      # 挂载本地设置默认PHP配置文件
+      - ./php7.2/conf/php.ini:/usr/local/etc/php/php.ini
+      # 挂载PHP默认访问目录指向web根目录
+      - ./www:/var/www/html
+    restart: always
+    ports:
+      # 防止9000端口被占用
+      - '9000:9000'
+    container_name: php7.2
