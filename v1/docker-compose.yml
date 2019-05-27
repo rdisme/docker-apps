@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+
+  python:
+    build:
+      context: ./python
+    # 指定镜像名
+    image: v1-python-1.1
+    # 挂载本地目录
+    volumes:
+      - ./www:/myapp
+    command: uwsgi --ini /myapp/uwsgi.ini
+    restart: always
+    # 不对外提供服务
+    # ports:
+    #   - "5000:8000"
+    container_name: python
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+
+  nginx:
+    image: nginx:1.15
+    volumes:
+      # 挂载本地nginx配置文件
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      # 挂载本地nginx 域名配置目录
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      # 挂载本地SSL证书目录
+      - ./nginx/cert:/etc/nginx/cert
+      # 挂载本地日志目录
+      - ./nginx/log:/var/log/nginx
+      # 挂载本地项目目录
+      - ./www:/usr/share/nginx/html
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    container_name: nginx1.15
