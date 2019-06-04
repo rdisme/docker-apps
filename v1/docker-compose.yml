@@ -34,7 +34,7 @@ services:
       - '8000'
     container_name: python.mysite
 
-  # mysite app 通过socket与nginx搭配使用
+  # testsite app 通过socket与nginx搭配使用
   python.testsite:
     build:
       context: ./python
@@ -64,7 +64,7 @@ services:
       # 挂载本地日志目录
       - ./nginx/log:/var/log/nginx
       # 挂载本地项目目录
-      # - ./www:/usr/share/nginx/html
+      - ./www:/usr/share/nginx/html
     restart: always
     ports:
       - '80:80'
