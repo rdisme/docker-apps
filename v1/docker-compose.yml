@@ -1,25 +1,57 @@
 version: '3.3'
 services:
 
-  python:
+  # default demo 可以通过 localhost:8000 访问
+  python.default:
     build:
       context: ./python
     # 指定镜像名
-    image: v1-python-1.1
+    image: python3.7:common
     # 挂载本地目录
     volumes:
-      - ./www:/myapp
-    command: uwsgi --ini /myapp/uwsgi.ini
+      # 将default目录挂载至容器
+      - ./www/default:/myapp/default
+    command: uwsgi --ini /myapp/default/uwsgi.ini
     restart: always
-    # 不对外提供服务
-    # ports:
-    #   - "5000:8000"
-    container_name: python
+    ports:
+      - '8000:8000'
+    container_name: python.default
 
-  redis:
-    image: redis:alpine
-    container_name: redis
+  # mysite app 通过socket与nginx搭配使用
+  python.mysite:
+    build:
+      context: ./python
+    # 指定镜像名
+    image: python3.7:common
+    # 挂载本地目录
+    volumes:
+      # 将default目录挂载至容器
+      - ./www/mysite:/myapp/mysite
+    command: uwsgi --ini /myapp/mysite/uwsgi.ini
+    restart: always
+    ports:
+      # 容器内部走8000端口，外部端口自动分配
+      - '8000'
+    container_name: python.mysite
 
+  # mysite app 通过socket与nginx搭配使用
+  python.testsite:
+    build:
+      context: ./python
+    # 指定镜像名
+    image: python3.7:common
+    # 挂载本地目录
+    volumes:
+      # 将default目录挂载至容器
+      - ./www/testsite:/myapp/testsite
+    command: uwsgi --ini /myapp/testsite/uwsgi.ini
+    restart: always
+    ports:
+      # 容器内部走8000端口，外部端口自动分配
+      - '8000'
+    container_name: python.testsite
+
+  # web服务器 nginx
   nginx:
     image: nginx:1.15
     volumes:
@@ -32,9 +64,9 @@ services:
       # 挂载本地日志目录
       - ./nginx/log:/var/log/nginx
       # 挂载本地项目目录
-      - ./www:/usr/share/nginx/html
+      # - ./www:/usr/share/nginx/html
     restart: always
     ports:
       - '80:80'
-      - '443:443'
-    container_name: nginx1.15
+      - '81:81'
+    container_name: nginx
