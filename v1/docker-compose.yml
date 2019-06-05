@@ -6,7 +6,7 @@ services:
     build:
       context: ./python
     # 指定镜像名
-    image: python3.7:common
+    image: python:3.7.0
     # 挂载本地目录
     volumes:
       # 将default目录挂载至容器
@@ -22,7 +22,7 @@ services:
     build:
       context: ./python
     # 指定镜像名
-    image: python3.7:common
+    image: python:3.7.0
     # 挂载本地目录
     volumes:
       # 将default目录挂载至容器
@@ -39,7 +39,7 @@ services:
     build:
       context: ./python
     # 指定镜像名
-    image: python3.7:common
+    image: python:3.7.0
     # 挂载本地目录
     volumes:
       # 将default目录挂载至容器
