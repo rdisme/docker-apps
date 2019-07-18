@@ -1,11 +1,12 @@
 version: '3.3'
 services:
 
-  nginx1.15:
+  nginx:
     depends_on:
-      - php7.2
-    # 指定镜像来源
-    image: rdisme/nginx:base
+      - php
+    build:
+      context: ./nginx1.15
+    image: nginx:1.15.0
     volumes:
         # 挂载本地nginx配置文件
         - ./nginx1.15/nginx.conf:/etc/nginx/nginx.conf
@@ -21,11 +22,15 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    container_name: nginx1.15
+    container_name: nginx
 
 
-  php7.2:
-    image: rdisme/php:2.2
+  php:
+    depends_on:
+      - mysql
+    build:
+      context: ./php7.2
+    image: php:7.2.0
     volumes:
       # 挂载本地php-fpm进程服务的配置文件
       - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
@@ -37,6 +42,28 @@ services:
       - ./www:/var/www/html
     restart: always
     ports:
-      # 防止9000端口被占用
-      - '9000:9000'
-    container_name: php7.2
+      # 外部端口自动分配，容器内部端口9000
+      - '9000'
+    container_name: php
+
+
+  mysql:
+    build:
+      context: ./mysql8.0
+    image: mysql:8.0.0
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      # 挂载本地mysql 配置文件
+      - ./mysql8.0/conf/my.cnf:/etc/mysql/my.cnf
+      # 挂载本地mysql自定义配置目录
+      - ./mysql8.0/conf/my:/etc/mysql/conf.d
+      # 挂载本地数据持久化
+      - ./mysql8.0/data:/var/lib/mysql
+    environment:
+      # mysql root账号密码
+      MYSQL_ROOT_PASSWORD: KydtvwlF2j5aJwBd
+    ports:
+      # 容器内部端口3306，外部端口自动分配
+      - '3306'
+    container_name: mysql
