@@ -1,6 +1,22 @@
 # docker-envs
-- 用docker构建的项目环境
+
+> 建议
+
 - 推荐使用vs code编辑器，安装docker扩展，方便管理容器与镜像
+
+
+> Install Docker
+
+- [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
+
+- [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+
+- [Linux](https://docs.docker.com/install/linux/docker-ce/centos/)
+
+> Docker document
+
+- [官方文档](https://docs.docker.com/install/linux/docker-ce/centos/)
+
 
 ## 目录结构
 
@@ -67,7 +83,7 @@ docker run -it -d \
 - 在app目录下更新代码
 - 需要进入容器中执行 npm等一些列命令
 
-进入容器命令
+进入容器命令（若是vs code编辑器，容器管理会更方便）
 ```
 docker exec -it 容器名 /bin/bash
 ```
