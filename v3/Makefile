@@ -1,11 +1,15 @@
-# node image version
+# node镜像的版本
+# 更多版本 https://hub.docker.com/_/node
 NODE_VERSION=node:8
-# container name
+# 容器名称，用于防止多容器名字冲突
 CONTAINER_NAME=node.v3
-# local src
+# 需要挂载的本地目录
 HOST_SRC=${PWD}/app
-# container src
+# 挂载容器的目录
 CONTAINER_DEST=/usr/src/app
+# 注意！！！！
+# 下面的命令中 -p参数，是用来指定端口映射关系的
+# 比如 npm run dev 此时的端口，需要映射到容器外部才能访问
 
 
 run:
