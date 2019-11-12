@@ -30,7 +30,7 @@ services:
       - mysql
     build:
       context: ./php7.2
-    image: php:7.2.0
+    image: php:7.2.2
     volumes:
       # 挂载本地php-fpm进程服务的配置文件
       - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
