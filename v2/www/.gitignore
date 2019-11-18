@@ -1,4 +1,5 @@
 *
 !.gitignore
 !index.php
+!redis.php
 !logs
