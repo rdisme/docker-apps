@@ -100,7 +100,7 @@ services:
 
   rabbitmq:
     build: ./rabbitmq
-    image: rabbitmq:3.8
+    image: rabbitmq:3.8-m
     logging:
       driver: "json-file"
       options:
