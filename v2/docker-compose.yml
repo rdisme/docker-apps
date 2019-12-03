@@ -29,7 +29,6 @@ services:
       - '443:443'
     container_name: nginx
 
-
   php:
     depends_on:
       - mysql
@@ -55,7 +54,6 @@ services:
       # 外部端口自动分配，容器内部端口9000
       - '9000'
     container_name: php
-
 
   mysql:
     build:
@@ -99,3 +97,25 @@ services:
       - ./redis/log:/usr/local/redis/log
     restart: always
     container_name: redis
+
+  rabbitmq:
+    build: ./rabbitmq
+    image: rabbitmq:3.8
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "20"
+    hostname: myrabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: SWQOKODSQALRPCLNMEQG
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq
+    restart: always
+    container_name: rabbitmq
