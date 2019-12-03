@@ -3,7 +3,7 @@
 > 建议
 
 - 推荐使用vs code编辑器，安装docker扩展，方便管理容器与镜像
-
+- [配置daocloud镜像站](https://www.daocloud.io/mirror)
 
 > Install Docker
 
@@ -24,7 +24,7 @@
 >> nginx + python
 
 > [v2](#v2)
->> nginx + php + mysql
+>> nginx + php + mysql + redis + rabbitmq
 
 > [v3](#v3)
 >> nodejs 环境
