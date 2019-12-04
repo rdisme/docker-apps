@@ -32,9 +32,7 @@ services:
   php:
     depends_on:
       - mysql
-    build:
-      context: ./php7.2
-    image: php:7.2.3
+    image: rdisme/php:7.2-fpm-1
     logging:
       driver: "json-file"
       options:
@@ -99,8 +97,7 @@ services:
     container_name: redis
 
   rabbitmq:
-    build: ./rabbitmq
-    image: rabbitmq:3.8-m
+    image: rabbitmq:3.8-management
     logging:
       driver: "json-file"
       options:
