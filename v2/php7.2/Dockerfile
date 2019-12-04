@@ -27,9 +27,10 @@ RUN docker-php-ext-install zip bcmath
 RUN pecl install mcrypt-1.0.2 \
     && docker-php-ext-enable mcrypt
 
-# 安装composer
+# 安装composer, 更新为国内镜像
 RUN cd ~ \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
+    && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 # 安装PHPRedis扩展
 RUN cd ~ \

@@ -34,7 +34,7 @@ services:
       - mysql
     build:
       context: ./php7.2
-    image: php:7.2.2
+    image: php:7.2.3
     logging:
       driver: "json-file"
       options:
