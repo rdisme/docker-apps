@@ -17,11 +17,9 @@ RUN apt-get update \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
-# 安装MySQL扩展
-RUN docker-php-ext-install pdo_mysql mysqli
-
-# 安装zip unzip bcmath扩展
-RUN docker-php-ext-install zip bcmath
+# 安装扩展
+# mysql zip unzip bcmath sockets
+RUN docker-php-ext-install pdo_mysql mysqli zip bcmath sockets
 
 # 安装mcrypt扩展
 RUN pecl install mcrypt-1.0.2 \
