@@ -118,3 +118,26 @@ services:
       - ./rabbitmq/data:/var/lib/rabbitmq
     restart: always
     container_name: rabbitmq
+
+  # 不对外暴露端口，仅用于队列使用
+  supervisor:
+    build:
+      context: ./supervisor
+    image: supervisor:1.1
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "20"
+    volumes:
+      # 与PHP共享配置文件
+      - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./php7.2/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php7.2/conf/php.ini:/usr/local/etc/php/php.ini
+      # 挂载PHP默认访问目录指向web根目录
+      - ./www:/var/www/html
+      # 挂载supervisor配置文件
+      - ./supervisor/config:/etc/supervisor
+    restart: always
+    command: supervisord -nc /etc/supervisor/supervisord.conf
+    container_name: supervisor
