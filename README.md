@@ -24,7 +24,7 @@
 >> nginx + python
 
 > [v2](#v2)
->> nginx + php + mysql + redis + rabbitmq
+>> nginx + php + mysql + redis + rabbitmq + supervisor
 
 > [v3](#v3)
 >> nodejs 环境
