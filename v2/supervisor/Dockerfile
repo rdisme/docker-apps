@@ -52,4 +52,5 @@ RUN cd ~ \
     && apt-get -y install python3.7 python3-distutils \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
     && python3.7 get-pip.py \
-    && pip install supervisor==4.1.0
+    && pip install supervisor==4.1.0 \
+    && mkdir -p /etc/supervisor
