@@ -5,8 +5,11 @@ FROM php:7.2-fpm
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 安装PHP Core Extensions
-RUN apt-get update \
+# 更换apt-get源
+RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list \
+    && rm -Rf /var/lib/apt/lists/* \
+    && apt-get update \
+    # 安装PHP Core Extensions
 	&& apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
