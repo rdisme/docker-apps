@@ -41,12 +41,12 @@ services:
         max-size: "2m"
         max-file: "20"
     volumes:
-      # 挂载本地php-fpm进程服务的配置文件
-      - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      # 挂载本地设置php-fpm进程服务的扩展配置文件
-      - ./php7.2/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      # 挂载本地设置默认PHP配置文件
+      # 挂载PHP核心配置文件
       - ./php7.2/conf/php.ini:/usr/local/etc/php/php.ini
+      # 挂载php-fpm进程服务的配置文件
+      - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      # 挂载php-fpm进程服务的扩展配置文件
+      - ./php7.2/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
       # 挂载PHP默认访问目录指向web根目录
       - ./www:/var/www/html
     restart: always
@@ -130,10 +130,12 @@ services:
         max-size: "2m"
         max-file: "20"
     volumes:
-      # 与PHP共享配置文件
-      - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ./php7.2/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      # 挂载PHP核心配置文件
       - ./php7.2/conf/php.ini:/usr/local/etc/php/php.ini
+      # 挂载php-fpm进程服务的配置文件
+      - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      # 挂载php-fpm进程服务的扩展配置文件
+      - ./php7.2/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
       # 挂载PHP默认访问目录指向web根目录
       - ./www:/var/www/html
       # 挂载supervisor配置文件

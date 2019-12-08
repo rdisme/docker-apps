@@ -5,14 +5,20 @@ FROM php:7.2-fpm
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# 更换apt-get源
+RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list \
+    && rm -Rf /var/lib/apt/lists/* \
+    && apt-get update
+
 # 安装PHP Core Extensions
-RUN apt-get update \
-	&& apt-get install -y \
+RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
 		libmcrypt-dev \
         unzip \
+        # 安装supervisor
+        supervisor \
     && docker-php-ext-install \
         -j$(nproc) \
         iconv \
@@ -46,11 +52,3 @@ RUN cd ~ \
 # 安装seaslog扩展
 RUN pecl install https://pecl.php.net/get/SeasLog-2.0.2.tgz \
     && docker-php-ext-enable seaslog
-
-# install python pip supervisor
-RUN cd ~ \
-    && apt-get -y install python3.7 python3-distutils \
-    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-    && python3.7 get-pip.py \
-    && pip install supervisor==4.1.0 \
-    && mkdir -p /etc/supervisor
