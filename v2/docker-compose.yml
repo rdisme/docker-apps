@@ -4,9 +4,7 @@ services:
   nginx:
     depends_on:
       - php
-    build:
-      context: ./nginx1.15
-    image: nginx:1.15.1
+    image: registry.cn-beijing.aliyuncs.com/rdisme/nginx:1.15-0
     logging:
       driver: "json-file"
       options:
@@ -32,9 +30,7 @@ services:
   php:
     depends_on:
       - mysql
-    build:
-      context: ./php7.2
-    image: php:7.2.3
+    image: registry.cn-beijing.aliyuncs.com/rdisme/php:7.2-fpm-1
     logging:
       driver: "json-file"
       options:
@@ -56,9 +52,7 @@ services:
     container_name: php
 
   mysql:
-    build:
-      context: ./mysql8.0
-    image: mysql:8.0.0
+    image: registry.cn-beijing.aliyuncs.com/rdisme/mysql:8.0-0
     logging:
       driver: "json-file"
       options:
@@ -82,8 +76,7 @@ services:
     container_name: mysql
 
   redis:
-    build: ./redis
-    image: redis:5.0.0
+    image: registry.cn-beijing.aliyuncs.com/rdisme/redis:5-0
     logging:
       driver: "json-file"
       options:
@@ -99,7 +92,7 @@ services:
     container_name: redis
 
   rabbitmq:
-    image: rabbitmq:3.8-management
+    image: registry.cn-beijing.aliyuncs.com/rdisme/rabbitmq:3.8-m
     logging:
       driver: "json-file"
       options:
@@ -121,9 +114,7 @@ services:
 
   # 仅用于队列使用
   supervisor:
-    build:
-      context: ./supervisor
-    image: supervisor:1.1
+    image: registry.cn-beijing.aliyuncs.com/rdisme/supervisor:php-0
     logging:
       driver: "json-file"
       options:
