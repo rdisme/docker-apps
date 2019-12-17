@@ -18,7 +18,7 @@ services:
         # 挂载本地SSL证书目录
         - ./nginx1.15/cert:/etc/nginx/cert
         # 挂载本地日志目录
-        - ./nginx1.15/log:/var/log/nginx
+        - ./logs/nginx:/var/log/nginx
         # 挂载本地项目目录
         - ./www:/usr/share/nginx/html
     restart: always
