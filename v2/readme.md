@@ -6,5 +6,7 @@
 
 [supervisor doc](http://supervisord.org/index.html)
 
+[seaslog doc](https://github.com/SeasX/SeasLog)
+
 - rabbitmq web管理地址：IP:15672
 - supervisor web管理地址：IP:9001
