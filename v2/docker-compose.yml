@@ -36,6 +36,8 @@ services:
       options:
         max-size: "2m"
         max-file: "20"
+    cap_add:
+      - SYS_PTRACE
     volumes:
       # 挂载PHP核心配置文件
       - ./php7.2/conf/php.ini:/usr/local/etc/php/php.ini
@@ -43,6 +45,10 @@ services:
       - ./php7.2/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
       # 挂载php-fpm进程服务的扩展配置文件
       - ./php7.2/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      # 挂载seaslog
+      - ./logs/php/seaslog:/var/log/seaslog
+      # 挂载慢日志
+      - ./logs/php/slow:/var/log/slow
       # 挂载PHP默认访问目录指向web根目录
       - ./www:/var/www/html
     restart: always
