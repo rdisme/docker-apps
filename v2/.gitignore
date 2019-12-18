@@ -5,14 +5,17 @@ www/*
 
 logs/nginx/*
 !logs/nginx/.gitkeep
-
 logs/php/*
 !logs/php/.gitkeep
-
 !logs/php/seaslog
 logs/php/seaslog/*
 !logs/php/seaslog/.gitkeep
-
 !logs/php/slow
 logs/php/slow/*
 !logs/php/slow/.gitkeep
+
+rabbitmq/*
+!rabbitmq/.gitkeep
+!rabbitmq/data
+rabbitmq/data/*
+!rabbitmq/data/.gitkeep
